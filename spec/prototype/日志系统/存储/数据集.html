@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlueKing Lite - 数据集</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #f6f8fb 0%, #f0f2f7 100%);
+            color: #1f2329;
+        }
+
+        .top-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            height: 60px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            font-size: 18px;
+            letter-spacing: -0.3px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #0052d9 0%, #3a84ff 50%, #699eff 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(58, 132, 255, 0.25);
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 8px;
+            margin-left: 48px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #646a73;
+            font-size: 14px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .nav-icon {
+            font-size: 16px;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            color: #0052d9;
+            background: rgba(0, 82, 217, 0.1);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            color: #646a73;
+            font-size: 14px;
+        }
+
+        .sub-header {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            height: 52px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+        }
+
+        .sub-nav {
+            display: flex;
+            gap: 4px;
+        }
+
+        .sub-nav-item {
+            padding: 10px 20px;
+            font-size: 14px;
+            color: #646a73;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 500;
+        }
+
+        .sub-nav-item:hover,
+        .sub-nav-item.active {
+            color: #0052d9;
+            background: rgba(0, 82, 217, 0.12);
+        }
+
+        .primary-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 18px;
+            background: linear-gradient(135deg, #0052d9 0%, #3a84ff 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .main-container {
+            padding: 24px;
+        }
+
+        .page-header {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px 28px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        }
+
+        .page-title h1 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .page-title p {
+            color: #646a73;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .summary-strip {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .summary-card {
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+        }
+
+        .summary-label {
+            font-size: 13px;
+            color: #8f959e;
+            margin-bottom: 8px;
+        }
+
+        .summary-value {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1f2329;
+        }
+
+        .summary-note {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #646a73;
+        }
+
+        .content-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+        }
+
+        .content-toolbar {
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            border-bottom: 1px solid #ebeef5;
+        }
+
+        .toolbar-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2329;
+        }
+
+        .toolbar-note {
+            font-size: 13px;
+            color: #8f959e;
+            margin-top: 6px;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 16px 24px;
+            text-align: left;
+            border-bottom: 1px solid #f0f2f5;
+            font-size: 14px;
+            vertical-align: top;
+        }
+
+        .data-table th {
+            font-size: 13px;
+            font-weight: 600;
+            color: #646a73;
+            background: #f8f9fb;
+        }
+
+        .dataset-name {
+            font-weight: 600;
+            color: #1f2329;
+            margin-bottom: 6px;
+        }
+
+        .dataset-desc,
+        .muted-text {
+            font-size: 13px;
+            color: #8f959e;
+            line-height: 1.5;
+        }
+
+        .status-tag,
+        .plain-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .status-tag.enabled {
+            color: #036b26;
+            background: rgba(22, 163, 74, 0.12);
+        }
+
+        .status-tag.disabled {
+            color: #8f959e;
+            background: #f0f2f5;
+        }
+
+        .plain-tag {
+            color: #0052d9;
+            background: rgba(0, 82, 217, 0.08);
+            margin-bottom: 6px;
+        }
+
+        .action-links {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .action-link {
+            color: #0052d9;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .action-link.secondary {
+            color: #646a73;
+        }
+
+        .modal-mask {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.42);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            z-index: 1000;
+        }
+
+        .modal-mask:target {
+            display: flex;
+        }
+
+        .modal-dialog {
+            width: min(760px, 100%);
+            max-height: calc(100vh - 48px);
+            overflow-y: auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(15, 23, 42, 0.18);
+        }
+
+        .modal-header {
+            padding: 24px 28px 16px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 20px;
+            border-bottom: 1px solid #ebeef5;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1f2329;
+        }
+
+        .modal-subtitle,
+        .field-hint,
+        .switch-note,
+        .readonly-note {
+            font-size: 13px;
+            color: #646a73;
+            line-height: 1.6;
+        }
+
+        .modal-close {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #646a73;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .modal-close:hover {
+            background: #f5f7fa;
+            color: #1f2329;
+        }
+
+        .modal-body {
+            padding: 24px 28px 28px;
+        }
+
+        .form-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .form-item {
+            display: grid;
+            gap: 8px;
+        }
+
+        .form-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #1f2329;
+        }
+
+        .required {
+            color: #f53f3f;
+            margin-left: 4px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #dcdfe6;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            background: #fff;
+        }
+
+        .form-input:focus {
+            border-color: #0052d9;
+            box-shadow: 0 0 0 2px rgba(0, 82, 217, 0.1);
+        }
+
+        .readonly-box {
+            padding: 12px 14px;
+            background: #f5f7fa;
+            border: 1px solid #ebeef5;
+            border-radius: 8px;
+        }
+
+        .input-with-unit {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .unit-badge {
+            padding: 10px 12px;
+            border-radius: 8px;
+            background: #f5f7fa;
+            font-size: 14px;
+            color: #606266;
+        }
+
+        .switch-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .switch {
+            width: 44px;
+            height: 24px;
+            border-radius: 999px;
+            position: relative;
+            background: #0052d9;
+            flex-shrink: 0;
+        }
+
+        .switch::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 23px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #fff;
+        }
+
+        .backup-panel {
+            padding: 20px;
+            border-radius: 12px;
+            background: #f9fafc;
+            border: 1px solid #ebeef5;
+            display: grid;
+            gap: 20px;
+        }
+
+        .multi-select {
+            min-height: 44px;
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid #dcdfe6;
+            background: #fff;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .tag {
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(0, 82, 217, 0.08);
+            color: #0052d9;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .modal-footer {
+            padding: 0 28px 28px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        .ghost-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 18px;
+            border-radius: 8px;
+            border: 1px solid #dcdfe6;
+            color: #646a73;
+            background: #fff;
+        }
+
+        .info-banner {
+            margin: 20px 24px 24px;
+            padding: 14px 16px;
+            border-radius: 10px;
+            background: rgba(0, 82, 217, 0.06);
+            color: #0052d9;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 1100px) {
+            .summary-strip {
+                grid-template-columns: 1fr;
+            }
+
+            .page-header,
+            .content-toolbar,
+            .sub-header,
+            .top-header {
+                flex-direction: column;
+                align-items: flex-start;
+                height: auto;
+            }
+
+            .data-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="top-header">
+        <div class="header-left">
+            <div class="logo">
+                <div class="logo-icon">BK</div>
+                <span>BlueKing Lite</span>
+            </div>
+            <nav class="header-nav">
+                <a class="nav-item" href="#">
+                    <span class="nav-icon">📝</span>
+                    <span>日志搜索</span>
+                </a>
+                <a class="nav-item" href="#">
+                    <span class="nav-icon">📈</span>
+                    <span>日志分析</span>
+                </a>
+                <a class="nav-item" href="#">
+                    <span class="nav-icon">📅</span>
+                    <span>事件</span>
+                </a>
+                <a class="nav-item" href="../集成/集成-场景化.html">
+                    <span class="nav-icon">🔌</span>
+                    <span>集成</span>
+                </a>
+                <a class="nav-item active" href="数据集.html">
+                    <span class="nav-icon">🗄️</span>
+                    <span>存储</span>
+                </a>
+            </nav>
+        </div>
+        <div class="header-right">
+            <span>👤 首页文档</span>
+            <span>🌐 语言: 简体中文</span>
+        </div>
+    </header>
+
+    <div class="sub-header">
+        <nav class="sub-nav">
+            <a class="sub-nav-item active" href="数据集.html">数据集</a>
+            <a class="sub-nav-item" href="日志备份.html">日志备份</a>
+        </nav>
+    </div>
+
+    <main class="main-container">
+        <section class="page-header">
+            <div class="page-title">
+                <h1>数据集</h1>
+                <p>一个数据集对应一个 VL 数据库，用于管理日志保留策略和是否开启每日备份。</p>
+            </div>
+        </section>
+
+        <section class="content-card">
+            <div class="content-toolbar">
+                <div>
+                    <div class="toolbar-title">数据集列表</div>
+                </div>
+                <a class="primary-btn" href="#create-dataset-modal">新增</a>
+            </div>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>数据集</th>
+                        <th>VL 数据库</th>
+                        <th>日志保留</th>
+                        <th>备份</th>
+                        <th>备份保留</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="dataset-name">应用访问日志</div>
+                        </td>
+                        <td>
+                            <div class="plain-tag">vl_app_access</div>
+                        </td>
+                        <td>30 天</td>
+                        <td>
+                            <span class="status-tag enabled">已开启</span>
+                        </td>
+                        <td>180 天</td>
+                        <td>
+                            <div class="action-links">
+                                <a class="action-link" href="数据集-新建.html">编辑</a>
+                                <a class="action-link secondary" href="日志备份.html">查看备份</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="dataset-name">安全审计日志</div>
+                        </td>
+                        <td>
+                            <div class="plain-tag">vl_security_audit</div>
+                        </td>
+                        <td>90 天</td>
+                        <td>
+                            <span class="status-tag enabled">已开启</span>
+                        </td>
+                        <td>365 天</td>
+                        <td>
+                            <div class="action-links">
+                                <a class="action-link" href="数据集-新建.html">编辑</a>
+                                <a class="action-link secondary" href="日志备份.html">查看备份</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="dataset-name">容器运行日志</div>
+                        </td>
+                        <td>
+                            <div class="plain-tag">vl_container_runtime</div>
+                        </td>
+                        <td>7 天</td>
+                        <td>
+                            <span class="status-tag disabled">未开启</span>
+                        </td>
+                        <td>-</td>
+                        <td>
+                            <div class="action-links">
+                                <a class="action-link" href="数据集-新建.html">编辑</a>
+                                <a class="action-link secondary" href="日志备份.html">去开启备份</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </section>
+    </main>
+
+    <div id="create-dataset-modal" class="modal-mask">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <div>
+                    <div class="modal-title">新建数据集</div>
+                    <div class="modal-subtitle">配置数据保留策略，并决定是否开启每日备份。</div>
+                </div>
+                <a class="modal-close" href="#">×</a>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-grid">
+                    <div class="form-item">
+                        <label class="form-label">数据集名称<span class="required">*</span></label>
+                        <input class="form-input" type="text" value="应用访问日志" placeholder="请输入数据集名称">
+                    </div>
+
+                    <div class="form-item">
+                        <label class="form-label">VL 数据库<span class="required">*</span></label>
+                        <div class="readonly-box">
+                            <div>vl_app_access</div>
+                            <div class="readonly-note">一个数据集对应一个 VL 数据库。</div>
+                        </div>
+                    </div>
+
+                    <div class="form-item">
+                        <label class="form-label">日志保留时长<span class="required">*</span></label>
+                        <div class="input-with-unit">
+                            <input class="form-input" type="number" min="7" value="30">
+                            <span class="unit-badge">天</span>
+                        </div>
+                        <div class="field-hint">最少保留 7 天。</div>
+                    </div>
+
+                    <div class="form-item">
+                        <label class="form-label">开启数据备份</label>
+                        <div class="switch-row">
+                            <div class="switch"></div>
+                            <div>已开启</div>
+                        </div>
+                        <div class="switch-note">每天凌晨自动备份前一天日志。</div>
+                    </div>
+
+                    <div class="backup-panel">
+                        <div class="form-item">
+                            <label class="form-label">备份存储<span class="required">*</span></label>
+                            <div class="multi-select">
+                                <span class="tag">MinIO-归档一号</span>
+                                <span class="tag">MinIO-审计归档</span>
+                            </div>
+                            <div class="field-hint">开启备份后必须至少选择一个备份存储。</div>
+                        </div>
+
+                        <div class="form-item">
+                            <label class="form-label">备份保留时长<span class="required">*</span></label>
+                            <div class="input-with-unit">
+                                <input class="form-input" type="number" min="7" value="180">
+                                <span class="unit-badge">天</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <a class="ghost-btn" href="#">取消</a>
+                <a class="primary-btn" href="#">保存</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

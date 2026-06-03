@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #f6f8fb 0%, #f0f2f7 100%);
+            color: #1f2329;
+        }
+
+        .top-header,
+        .sub-header {
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+        }
+
+        .top-header {
+            height: 60px;
+            backdrop-filter: blur(20px);
+        }
+            font-size: 16px;
+        }
+        }
+
+        .top-header,
+        .sub-header {
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+                <a class="nav-item" href="#">
+                    <span class="nav-icon">📝</span>
+                    <span>日志搜索</span>
+                </a>
+                <a class="nav-item" href="#">
+                    <span class="nav-icon">📈</span>
+                    <span>日志分析</span>
+                </a>
+                <a class="nav-item" href="#">
+                    <span class="nav-icon">📅</span>
+                    <span>事件</span>
+                </a>
+                <a class="nav-item" href="../集成/集成-场景化.html">
+                    <span class="nav-icon">🔌</span>
+                    <span>集成</span>
+                </a>
+                <a class="nav-item active" href="数据集.html">
+                    <span class="nav-icon">🗄️</span>
+                    <span>存储</span>
+                </a>
+            justify-content: space-between;
+            padding: 0 32px;
+        }
+            <span>👤 首页文档</span>
+            <span>🌐 语言: 简体中文</span>
+            height: 60px;
+            backdrop-filter: blur(20px);
+        }
+
+        .sub-header {
+            height: 52px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-left,
+        .header-nav,
+        .sub-nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-nav {
+            margin-left: 48px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0052d9 0%, #3a84ff 100%);
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .nav-item,
+        .nav-item,
+        .sub-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #646a73;
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+
+        .nav-icon {
+            font-size: 16px;
+        }
+        }
+
+        .nav-item.active,
+        .sub-nav-item.active,
+        .nav-item:hover,
+        .sub-nav-item:hover {
+            color: #0052d9;
+            background: rgba(0, 82, 217, 0.1);
+        }
+
+        .header-right {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            color: #646a73;
+        }
+
+        .main-container {
+            padding: 24px;
+        }
+
+        .page-header {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px 28px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        }
+
+        .back-link {
+            color: #0052d9;
+            display: inline-block;
+            margin-bottom: 14px;
+        }
+
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .page-title h1 {
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .page-title p,
+        .muted-text,
+        .banner-text {
+            font-size: 14px;
+            color: #646a73;
+            line-height: 1.6;
+        }
+
+        .info-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 14px;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 5px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            background: rgba(0, 82, 217, 0.08);
+            color: #0052d9;
+        }
+
+        .status-tag {
+            background: rgba(22, 163, 74, 0.12);
+            color: #036b26;
+        }
+
+        .content-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #ebeef5;
+        }
+
+        .card-header h2 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .backup-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .backup-table th,
+        .backup-table td {
+            padding: 16px 24px;
+            text-align: left;
+            border-bottom: 1px solid #f0f2f5;
+            vertical-align: top;
+            font-size: 14px;
+        }
+
+        .backup-table th {
+            background: #f8f9fb;
+            font-size: 13px;
+            color: #646a73;
+            font-weight: 600;
+        }
+
+        .backup-date {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-pill.ready {
+            color: #0052d9;
+            background: rgba(0, 82, 217, 0.08);
+        }
+
+        .status-pill.restored {
+            color: #036b26;
+            background: rgba(22, 163, 74, 0.12);
+        }
+
+        .action-links {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .action-link {
+            color: #0052d9;
+        }
+
+        .action-link.secondary {
+            color: #646a73;
+        }
+
+        .info-banner {
+            margin: 20px 24px 24px;
+            padding: 14px 16px;
+            border-radius: 10px;
+            background: rgba(0, 82, 217, 0.06);
+        }
+
+        @media (max-width: 960px) {
+            .top-header,
+            .sub-header,
+            .header-left,
+            .header-row {
+                height: auto;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+                padding-top: 16px;
+                padding-bottom: 16px;
+            }
+
+            .backup-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="top-header">
+        <div class="header-left">
+            <div class="logo">
+                <div class="logo-icon">BK</div>
+                <span>BlueKing Lite</span>
+            </div>
+            <nav class="header-nav">
+                <a class="nav-item" href="#">
+                    <span class="nav-icon">📝</span>
+                    <span>日志搜索</span>
+                </a>
+                <a class="nav-item" href="#">
+                    <span class="nav-icon">📈</span>
+                    <span>日志分析</span>
+                </a>
+                <a class="nav-item" href="#">
+                    <span class="nav-icon">📅</span>
+                    <span>事件</span>
+                </a>
+                <a class="nav-item" href="../集成/集成-场景化.html">
+                    <span class="nav-icon">🔌</span>
+                    <span>集成</span>
+                </a>
+                <a class="nav-item active" href="数据集.html">
+                    <span class="nav-icon">🗄️</span>
+                    <span>存储</span>
+                </a>
+            </nav>
+        </div>
+        <div class="header-right">
+            <span>👤 首页文档</span>
+            <span>🌐 语言: 简体中文</span>
+        </div>
+    </header>
+
+    <div class="sub-header">
+        <nav class="sub-nav">
+            <a class="sub-nav-item" href="数据集.html">数据集</a>
+            <a class="sub-nav-item active" href="日志备份.html">日志备份</a>
+        </nav>
+    </div>
+
+    <main class="main-container">
+        <section class="page-header">
+            <a class="back-link" href="日志备份.html">返回日志备份</a>
+            <div class="header-row">
+                <div class="page-title">
+                    <h1>MinIO-归档一号</h1>
+                    <p>查看该存储下的日志备份清单，并执行恢复或清理恢复日志操作。</p>
+                    <div class="info-tags">
+                        <span class="tag">MinIO</span>
+                        <span class="tag">Bucket: log-backup-prod</span>
+                        <span class="tag status-tag">状态正常</span>
+                    </div>
+                </div>
+                <div class="muted-text">已关联 2 个数据集</div>
+            </div>
+        </section>
+
+        <section class="content-card">
+            <div class="card-header">
+                <h2>日志备份清单</h2>
+                <div class="muted-text">按日期查看备份记录，并执行恢复或清理。</div>
+            </div>
+
+            <table class="backup-table">
+                <thead>
+                    <tr>
+                        <th>备份日期</th>
+                        <th>来源数据集</th>
+                        <th>状态</th>
+                        <th>保留天数</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="backup-date">2026-05-25</div>
+                            <div class="muted-text">备份范围：昨日日志</div>
+                        </td>
+                        <td>应用访问日志</td>
+                        <td><span class="status-pill ready">可恢复</span></td>
+                        <td>180 天</td>
+                        <td>
+                            <div class="action-links">
+                                <a class="action-link" href="#">恢复日志</a>
+                                <a class="action-link secondary" href="#">清理恢复日志</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="backup-date">2026-05-24</div>
+                            <div class="muted-text">备份范围：昨日日志</div>
+                        </td>
+                        <td>应用访问日志</td>
+                        <td><span class="status-pill restored">已恢复</span></td>
+                        <td>180 天</td>
+                        <td>
+                            <div class="action-links">
+                                <a class="action-link" href="#">再次恢复</a>
+                                <a class="action-link secondary" href="#">清理恢复日志</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="backup-date">2026-05-25</div>
+                            <div class="muted-text">备份范围：昨日日志</div>
+                        </td>
+                        <td>容器运行日志</td>
+                        <td><span class="status-pill ready">可恢复</span></td>
+                        <td>30 天</td>
+                        <td>
+                            <div class="action-links">
+                                <a class="action-link" href="#">恢复日志</a>
+                                <a class="action-link secondary" href="#">清理恢复日志</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-banner">
+                <div class="banner-text">清理恢复日志会清理已恢复的日志数据。</div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

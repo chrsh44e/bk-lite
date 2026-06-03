@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlueKing Lite - 日志备份</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #f6f8fb 0%, #f0f2f7 100%);
+            color: #1f2329;
+        }
+
+        .nav-icon {
+            font-size: 16px;
+        }
+
+        .top-header,
+        .sub-header {
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+        }
+
+        .top-header {
+            height: 60px;
+            backdrop-filter: blur(20px);
+        }
+
+        .sub-header {
+            height: 52px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-left,
+        .header-nav,
+        .sub-nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-nav {
+            margin-left: 48px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0052d9 0%, #3a84ff 100%);
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .nav-item,
+        .sub-nav-item,
+        .primary-btn,
+        .ghost-btn,
+        .card-action {
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav-item,
+        .sub-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #646a73;
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+
+        .nav-item.active,
+        .sub-nav-item.active,
+        .nav-item:hover,
+        .sub-nav-item:hover {
+            color: #0052d9;
+            background: rgba(0, 82, 217, 0.1);
+        }
+
+        .header-right {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            color: #646a73;
+        }
+
+        .primary-btn,
+        .ghost-btn,
+        .card-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        .primary-btn {
+            padding: 10px 18px;
+            background: linear-gradient(135deg, #0052d9 0%, #3a84ff 100%);
+            color: #fff;
+        }
+
+        .main-container {
+            padding: 24px;
+        }
+
+        .page-header {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px 28px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        }
+
+        .page-title h1 {
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .page-title p,
+        .muted-text,
+        .card-meta,
+        .card-note {
+            font-size: 14px;
+            color: #646a73;
+            line-height: 1.6;
+        }
+
+        .storage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .storage-card,
+        .create-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 14px;
+            padding: 24px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+        }
+
+        .storage-card:hover,
+        .create-card:hover {
+            border-color: rgba(0, 82, 217, 0.18);
+            box-shadow: 0 10px 24px rgba(0, 82, 217, 0.08);
+        }
+
+        .card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .card-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(0, 82, 217, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .status-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #036b26;
+            background: rgba(22, 163, 74, 0.12);
+        }
+
+        .card-list {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .card-list-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            font-size: 14px;
+        }
+
+        .card-list-item .label {
+            color: #8f959e;
+        }
+
+        .card-list-item .value {
+            color: #1f2329;
+            font-weight: 500;
+            text-align: right;
+        }
+
+        .card-action {
+            width: 100%;
+            padding: 10px 16px;
+            color: #0052d9;
+            background: rgba(0, 82, 217, 0.06);
+        }
+
+        .create-card {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 14px;
+            min-height: 280px;
+            border-style: dashed;
+        }
+
+        .create-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .inline-form {
+            margin-top: 20px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        }
+
+        .form-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px 20px;
+        }
+
+        .form-item {
+            display: grid;
+            gap: 8px;
+        }
+
+        .form-item.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #dcdfe6;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: #0052d9;
+            box-shadow: 0 0 0 2px rgba(0, 82, 217, 0.1);
+        }
+
+        .footer-actions {
+            margin-top: 20px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .ghost-btn {
+            padding: 10px 18px;
+            border: 1px solid #dcdfe6;
+            background: #fff;
+            color: #646a73;
+        }
+
+        @media (max-width: 960px) {
+            .top-header,
+            .sub-header,
+            .page-header,
+            .header-left {
+                height: auto;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+                padding-top: 16px;
+                padding-bottom: 16px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="top-header">
+        <div class="header-left">
+            <div class="logo">
+                <div class="logo-icon">BK</div>
+                <span>BlueKing Lite</span>
+            </div>
+            <nav class="header-nav">
+                <a class="nav-item" href="#">
+                    <span class="nav-icon">📝</span>
+                    <span>日志搜索</span>
+                </a>
+                <a class="nav-item" href="#">
+                    <span class="nav-icon">📈</span>
+                    <span>日志分析</span>
+                </a>
+                <a class="nav-item" href="#">
+                    <span class="nav-icon">📅</span>
+                    <span>事件</span>
+                </a>
+                <a class="nav-item" href="../集成/集成-场景化.html">
+                    <span class="nav-icon">🔌</span>
+                    <span>集成</span>
+                </a>
+                <a class="nav-item active" href="数据集.html">
+                    <span class="nav-icon">🗄️</span>
+                    <span>存储</span>
+                </a>
+            </nav>
+        </div>
+        <div class="header-right">
+            <span>👤 首页文档</span>
+            <span>🌐 语言: 简体中文</span>
+        </div>
+    </header>
+
+    <div class="sub-header">
+        <nav class="sub-nav">
+            <a class="sub-nav-item" href="数据集.html">数据集</a>
+            <a class="sub-nav-item active" href="日志备份.html">日志备份</a>
+        </nav>
+        <a class="primary-btn" href="#new-storage">新增存储</a>
+    </div>
+
+    <main class="main-container">
+        <section class="page-header">
+            <div class="page-title">
+                <h1>日志备份</h1>
+                <p>日志备份页展示备份存储卡片。每个存储对应一个 MinIO 对接目标，点击后查看该存储下的备份清单。</p>
+            </div>
+            <div class="muted-text">查看备份存储、关联数据集和状态。</div>
+        </section>
+
+        <section class="storage-grid">
+            <article class="storage-card">
+                <div class="card-top">
+                    <div>
+                        <div class="card-icon">🗂️</div>
+                    </div>
+                    <span class="status-tag">正常</span>
+                </div>
+                <div class="card-title">MinIO-归档一号</div>
+                <div class="card-meta">应用访问日志、容器运行日志的默认归档位置。</div>
+                <div class="card-list">
+                    <div class="card-list-item"><span class="label">类型</span><span class="value">MinIO</span></div>
+                    <div class="card-list-item"><span class="label">Endpoint</span><span class="value">minio.prod.internal</span></div>
+                    <div class="card-list-item"><span class="label">Bucket</span><span class="value">log-backup-prod</span></div>
+                    <div class="card-list-item"><span class="label">关联数据集</span><span class="value">2 个</span></div>
+                </div>
+                <a class="card-action" href="备份存储详情.html">查看备份清单</a>
+            </article>
+
+            <article class="storage-card">
+                <div class="card-top">
+                    <div>
+                        <div class="card-icon">🛡️</div>
+                    </div>
+                    <span class="status-tag">正常</span>
+                </div>
+                <div class="card-title">MinIO-审计归档</div>
+                <div class="card-meta">审计日志专用归档存储，保留周期较长。</div>
+                <div class="card-list">
+                    <div class="card-list-item"><span class="label">类型</span><span class="value">MinIO</span></div>
+                    <div class="card-list-item"><span class="label">Endpoint</span><span class="value">minio.audit.internal</span></div>
+                    <div class="card-list-item"><span class="label">Bucket</span><span class="value">audit-backup</span></div>
+                    <div class="card-list-item"><span class="label">关联数据集</span><span class="value">1 个</span></div>
+                </div>
+                <a class="card-action" href="备份存储详情.html">查看备份清单</a>
+            </article>
+
+            <article class="create-card" id="new-storage">
+                <div class="card-icon">＋</div>
+                <div class="create-title">新增备份存储</div>
+                <div class="card-note">填写 MinIO 存储信息后即可创建。</div>
+                <a class="primary-btn" href="#storage-form">填写 MinIO 配置</a>
+            </article>
+        </section>
+
+        <section class="inline-form" id="storage-form">
+            <div class="form-title">新增 MinIO 存储</div>
+            <div class="form-grid">
+                <div class="form-item">
+                    <label class="form-label">存储名称</label>
+                    <input class="form-input" type="text" value="MinIO-归档二号">
+                </div>
+                <div class="form-item">
+                    <label class="form-label">Endpoint</label>
+                    <input class="form-input" type="text" value="https://minio.backup.internal">
+                </div>
+                <div class="form-item">
+                    <label class="form-label">Bucket</label>
+                    <input class="form-input" type="text" value="log-backup-cold">
+                </div>
+                <div class="form-item">
+                    <label class="form-label">AccessKey</label>
+                    <input class="form-input" type="text" value="bklog_backup">
+                </div>
+                <div class="form-item full">
+                    <label class="form-label">SecretKey</label>
+                    <input class="form-input" type="password" value="****************">
+                </div>
+            </div>
+            <div class="footer-actions">
+                <a class="primary-btn" href="日志备份.html">保存存储</a>
+                <a class="ghost-btn" href="日志备份.html">取消</a>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
